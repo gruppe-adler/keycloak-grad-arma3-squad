@@ -14,7 +14,7 @@
 <xsl:template match="/">
 <html>
 	<head>
-        <base href="/web/" />
+        <base href="{{BASE_HREF}}" />
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1.0" />
 		<title><xsl:value-of select="/squad/name"/> Squad-XML</title>

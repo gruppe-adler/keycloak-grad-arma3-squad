@@ -1,6 +1,6 @@
-package de.example.keycloak.arma3squad.provider
+package de.grad.keycloak.squad.provider
 
-import de.example.keycloak.arma3squad.config.SquadRealmConfig
+import de.grad.keycloak.squad.config.SquadRealmConfig
 import org.keycloak.Config
 import org.keycloak.models.KeycloakSession
 import org.keycloak.models.KeycloakSessionFactory
@@ -38,7 +38,7 @@ class SquadResourceProviderFactory : RealmResourceProviderFactory {
 
     override fun close() = Unit
 
-    override fun getConfigProperties(): List<ProviderConfigProperty> = listOf(
+    override fun getConfigMetadata(): List<ProviderConfigProperty?> = listOf(
         ProviderConfigProperty().apply {
             name         = SquadRealmConfig.ATTR_ENABLED
             label        = "Enabled"

@@ -1,4 +1,4 @@
-package de.example.keycloak.arma3squad.config
+package de.grad.keycloak.squad.config
 
 import org.keycloak.models.RealmModel
 
