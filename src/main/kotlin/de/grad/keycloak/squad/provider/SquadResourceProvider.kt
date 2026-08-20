@@ -54,12 +54,12 @@ class SquadResourceProvider(
             appendLine("""<?xml version="1.0" encoding="utf-8"?>""")
             appendLine("""<!DOCTYPE squad SYSTEM "squad.dtd">""")
             appendLine("""<?xml-stylesheet href="web/squad.xsl" type="text/xsl"?>""")
-            appendLine("""<squad nick="${realm.name.escapeXml()}">""")
-            appendLine("""  <name>${realm.displayName?.escapeXml() ?: realm.name.escapeXml()}</name>""")
-            appendLine("""  <email/>""")
-            appendLine("""  <web/>""")
-            appendLine("""  <picture/>""")
-            appendLine("""  <title/>""")
+            appendLine("""<squad nick="A">""")
+            appendLine("""  <name>Gruppe Adler</name>""")
+            appendLine("""  <email>kontakt@gruppe-adler.de</email>""")
+            appendLine("""  <web>https://gruppe-adler.de</web>""")
+            appendLine("""  <picture>logo.paa</picture>""")
+            appendLine("""  <title>Gruppe Adler</title>""")
 
             for (user in members) {
                 val steamId     = user.getFirstAttribute(config.steamIdAttribute)!!
