@@ -92,7 +92,7 @@ class SquadResourceProvider(
             return Response.status(Response.Status.BAD_REQUEST).build()
         }
 
-        return buildFileResponse( "/static/web/$filename");
+        return buildFileResponse( "/static/web/$filename")
     }
 
     @GET
@@ -102,7 +102,7 @@ class SquadResourceProvider(
             return Response.status(Response.Status.BAD_REQUEST).build()
         }
 
-        return buildFileResponse("/static/$filename");
+        return buildFileResponse("/static/$filename")
     }
 
     fun buildFileResponse(resourcePath: String): Response {
