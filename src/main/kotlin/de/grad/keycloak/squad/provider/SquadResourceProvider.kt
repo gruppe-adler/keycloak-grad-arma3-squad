@@ -10,7 +10,6 @@ import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.Response
 import org.keycloak.models.KeycloakSession
 import org.keycloak.services.resource.RealmResourceProvider
-import java.io.InputStream
 
 /**
  * JAX-RS resource mounted at `/realms/{realm}/arma3-squad/`.
@@ -63,10 +62,7 @@ class SquadResourceProvider(
 
             for (user in members) {
                 val steamId     = user.getFirstAttribute(config.steamIdAttribute)!!
-                val displayName = listOfNotNull(user.firstName, user.lastName)
-                    .filter { it.isNotBlank() }
-                    .joinToString(" ")
-                    .ifBlank { user.username }
+                val displayName = user.username
 
                 appendLine("""  <member id="${steamId.escapeXml()}" nick="${user.username.escapeXml()}">""")
                 appendLine("""    <name>${displayName.escapeXml()}</name>""")
