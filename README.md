@@ -48,6 +48,19 @@ Configuration is stored as **realm attributes**, so it persists across restarts 
 
 Only group members with a non-blank value in the configured Steam ID attribute are included in the feed.
 
+### Steam ID attribute and the user profile
+
+Since Keycloak 24 the declarative user profile is always active, and it **silently drops user attributes it doesn't know about**. If the Steam ID attribute isn't declared, setting it on a user appears to succeed but nothing is stored, and `squad.xml` comes out without any members.
+
+For each realm, do one of the following:
+
+- **Declare the attribute (recommended):** *Realm settings → User profile → Create attribute*, named `steamId` (or whatever `arma3squad.steamIdAttribute` is set to). Use the attribute's permissions to control who can view and edit it.
+- **Allow unmanaged attributes:** *Realm settings → General → Unmanaged attributes* → *Enabled* (or one of the admin-only options).
+
+### Known limitation: empty squads
+
+If no group member has a Steam ID, the feed contains no `<member>` elements. `squad.dtd` requires at least one member (`member+`), so that document does not validate against the DTD.
+
 ### Example: enable via Admin REST API
 
 ```http
@@ -104,7 +117,17 @@ Keycloak discovers the provider via the standard `ServiceLoader` file at
 mvn package
 ```
 
-This produces a shaded JAR at `target/keycloak-grad-arma3-squad-<version>-shaded.jar`.
+This produces a shaded JAR at `target/keycloak-grad-arma3-squad-<version>.jar`.
+
+## Testing
+
+```bash
+mvn test     # unit tests
+mvn verify   # unit tests + integration test against a real Keycloak (requires Docker)
+```
+
+- **Unit tests** (JUnit + MockK) cover realm config parsing, `squad.xml` generation (member filtering, XML escaping, validation against `squad.dtd`), static file serving (path traversal, content types, XSL base href) and SPI discovery.
+- **Integration test** (`SquadProviderIT`, run by `maven-failsafe-plugin` in `verify`) starts `quay.io/keycloak/keycloak:<keycloak.version>` via Testcontainers, deploys the shaded JAR, creates a realm, group and users through the admin API, and calls the endpoints over HTTP. Because the image tag comes from the POM, Keycloak version bumps are tested against the matching server.
 
 ## Installation
 
@@ -120,6 +143,8 @@ This produces a shaded JAR at `target/keycloak-grad-arma3-squad-<version>-shaded
    ```
 
 ## CI / Releases
+
+Every pull request and every push to `main` runs `mvn verify` (`.github/workflows/build.yml`), including the integration test.
 
 A GitHub Actions workflow (`.github/workflows/publish.yml`) builds the project and publishes it to GitHub Packages whenever a GitHub Release is published. The release tag is used to set the Maven project version before packaging.
 
