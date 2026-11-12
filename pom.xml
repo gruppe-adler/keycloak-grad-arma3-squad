@@ -11,7 +11,7 @@
 
     <properties>
         <kotlin.version>2.0.0</kotlin.version>
-        <keycloak.version>26.6.3</keycloak.version>
+        <keycloak.version>26.8.2</keycloak.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
