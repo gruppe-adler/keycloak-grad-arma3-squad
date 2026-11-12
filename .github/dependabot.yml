@@ -4,6 +4,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    assignees:
+      - "TheWillard"
     groups:
       # Keycloak artifacts must always move together.
       keycloak:
@@ -21,6 +23,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    assignees:
+      - "TheWillard"
     groups:
       actions:
         patterns:
